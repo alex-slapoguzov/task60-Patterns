@@ -9,20 +9,29 @@ public class MailPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    By logOutLocator = By.id("PH_logoutLink");
-    By inboxButtonLocator = By.cssSelector(".b-nav__item__text.b-nav__item__text_unread");
+
+    private By userNameLocator = By.cssSelector(".mail-User-Name");
+    private By logOutButtonLocator = By.xpath("//a[@class=\"b-mail-dropdown__item__content js-user-dropdown-item \"][text()='Выход']");
+    private By listWithMailButtonsLocator = By.cssSelector(".mail-NestedList-Item-Name.js-folders-item-name");
 
 
     public MailPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 15);
+        this.wait = new WebDriverWait(driver, 15);
     }
 
     public void logOutFromMail() {
-        driver.findElement(logOutLocator).click();
+        driver.findElement(userNameLocator).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logOutButtonLocator));
+        driver.findElement(logOutButtonLocator).click();
     }
 
-    public boolean isElementInboxButtonPresentOnMailPage(){
-        return wait.until(ExpectedConditions.elementToBeClickable(inboxButtonLocator)).isDisplayed();
+    private Integer numberElementsInList() {
+        wait.until(ExpectedConditions.elementToBeClickable(listWithMailButtonsLocator));
+        return driver.findElements(listWithMailButtonsLocator).size();
+    }
+
+    public boolean isMailPage() {
+        return numberElementsInList().equals(5);
     }
 }
