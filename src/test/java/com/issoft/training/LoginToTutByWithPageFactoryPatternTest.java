@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginToTutByWithPageFactoryPatternTest {
 
-    private final String TYT_BY_URL = "https://www.tut.by/";
-    private final String login = "seleniumtests10";
-    private final String password = "060788avavav";
+    private final static String TYT_BY_URL = "https://www.tut.by/";
+    private final static String LOGIN = "seleniumtests10";
+    private final static String PASSWORD = "060788avavav";
     private WebDriver driver;
 
     @BeforeClass
@@ -37,15 +37,15 @@ public class LoginToTutByWithPageFactoryPatternTest {
     public void loginTutByTest() {
         TutByPage tutByPage = new TutByPage(driver);
         LoginPage loginPage = tutByPage.clickMailLink();
-        MailPage mailPage = loginPage.login(login, password);
+        MailPage mailPage = loginPage.login(LOGIN, PASSWORD);
         Assert.assertTrue(mailPage.isFormPresent(), "Form isn't present");
     }
 
     @Test(dependsOnMethods = {"loginTutByTest"})
     public void logOutTutByTest() {
         MailPage mailPage = new MailPage(driver);
-        mailPage.logOut();
+        mailPage.logout();
         YandexPage yandexPage = new YandexPage(driver);
-        Assert.assertTrue(yandexPage.isInputFieldisPresent(), "Input field isn't on Yandex page");
+        Assert.assertTrue(yandexPage.isInputFieldIsPresent(), "Input field isn't on Yandex page");
     }
 }

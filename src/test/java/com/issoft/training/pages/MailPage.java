@@ -14,7 +14,7 @@ public class MailPage {
     private WebDriverWait wait;
 
     @FindBy(css = ".mail-NestedList-Item-Name.js-folders-item-name")
-    private WebElement listWithLink;
+    private WebElement listWithFolder;
 
     @FindBy(css = ".mail-User-Name")
     private WebElement userNameButton;
@@ -22,21 +22,23 @@ public class MailPage {
     @FindBy(xpath = "//a[@class=\"b-mail-dropdown__item__content js-user-dropdown-item \"][text()='Выход']")
     private WebElement logOutButton;
 
+    private final static Integer NUMBER_OF_STANDARD_FOLDERS = 5;
+
     public MailPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 15);
         PageFactory.initElements(driver, this);
     }
 
-    public YandexPage logOut() {
+    public YandexPage logout() {
         userNameButton.click();
         logOutButton.click();
         return new YandexPage(driver);
     }
 
     public boolean isFormPresent() {
-        wait.until(ExpectedConditions.visibilityOf(listWithLink));
+        wait.until(ExpectedConditions.visibilityOf(listWithFolder));
         int size = driver.findElements(By.cssSelector(".mail-NestedList-Item-Name.js-folders-item-name")).size();
-        return size == 5;
+        return size == NUMBER_OF_STANDARD_FOLDERS;
     }
 }

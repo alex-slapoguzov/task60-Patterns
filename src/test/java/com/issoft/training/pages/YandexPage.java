@@ -21,7 +21,7 @@ public class YandexPage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean isInputFieldisPresent() {
+    public boolean isInputFieldIsPresent() {
         wait.until(ExpectedConditions.elementToBeClickable(inputField));
         return inputField.isDisplayed();
     }
