@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginAndLogoutTutByWithPageObjectPatternTest {
 
-    private final static String login = "seleniumtests10";
-    private final static String password = "060788avavav";
-    private final String TYT_BY_URL = "https://www.tut.by/";
+    private final static String LOGIN = "seleniumtests10";
+    private final static String PASSWORD = "060788avavav";
+    private final static String TYT_BY_URL = "https://www.tut.by/";
 
 
     private WebDriver driver;
@@ -39,15 +39,14 @@ public class LoginAndLogoutTutByWithPageObjectPatternTest {
     public void loginTytByTest() {
         TutByPage tutByPage = new TutByPage(driver);
         LoginPage loginPage = tutByPage.clickMailLink();
-        loginPage.loginInTytBy(login, password);
-        MailPage mailPage = loginPage.clickSubmitButton();
+        MailPage mailPage = loginPage.login(LOGIN, PASSWORD);
         Assert.assertTrue(mailPage.isMailPage(), "Element inbox isn't on the page");
     }
 
     @Test(dependsOnMethods = {"loginTytByTest"})
     public void logOutTytByTest() {
         MailPage mailPage = new MailPage(driver);
-        mailPage.logOutFromMail();
+        mailPage.logout();
         YandexByPage yandexByPage = new YandexByPage(driver);
         Assert.assertTrue(yandexByPage.isInputFieldInYandexByPage(), "Input field isn't on yandex page");
     }

@@ -7,23 +7,20 @@ public class LoginPage {
 
     private WebDriver driver;
 
-    private By loginInputLocator = By.id("Username");
-    private By passwordInputLocator = By.id("Password");
-    private By submitButtonLocator = By.cssSelector(".button.loginButton.gradientforbutton");
+    private final static By LOGIN_INPUT = By.id("Username");
+    private final static By PASSWORD_INPUT = By.id("Password");
+    private final static By SUBMIT_BUTTON = By.cssSelector(".button.loginButton.gradientforbutton");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void loginInTytBy(String name, String password) {
-        driver.findElement(loginInputLocator).clear();
-        driver.findElement(loginInputLocator).sendKeys(name);
-        driver.findElement(passwordInputLocator).clear();
-        driver.findElement(passwordInputLocator).sendKeys(password);
-    }
-
-    public MailPage clickSubmitButton() {
-        driver.findElement(submitButtonLocator).click();
+    public MailPage login(String name, String password) {
+        driver.findElement(LOGIN_INPUT).clear();
+        driver.findElement(LOGIN_INPUT).sendKeys(name);
+        driver.findElement(PASSWORD_INPUT).clear();
+        driver.findElement(PASSWORD_INPUT).sendKeys(password);
+        driver.findElement(SUBMIT_BUTTON).click();
         return new MailPage(driver);
     }
 }

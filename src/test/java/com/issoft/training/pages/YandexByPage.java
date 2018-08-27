@@ -9,15 +9,15 @@ public class YandexByPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    private By inputFieldLocator = By.cssSelector(".input__control.input__input");
+    private final static By INPUT_FIELD = By.cssSelector(".input__control.input__input");
 
     public YandexByPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 15);
     }
 
-    public boolean isInputFieldInYandexByPage(){
-        wait.until(ExpectedConditions.presenceOfElementLocated(inputFieldLocator));
-        return driver.findElement(inputFieldLocator).isDisplayed();
+    public boolean isInputFieldInYandexByPage() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(INPUT_FIELD));
+        return driver.findElement(INPUT_FIELD).isDisplayed();
     }
 }
